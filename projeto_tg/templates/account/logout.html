@@ -1,0 +1,24 @@
+{% load i18n avatar_tags %}
+{% load staticfiles %}
+<div class="modal-dialog">
+    <div class="modal-content" style="width:350px">
+        <div class="modal-header" align="center">
+            <center>
+                <img src="{% static 'projeto_tg/images/logo.png' %}" width="150" style="margin-left:50%"/>
+            </center>
+        </div>
+
+        <form class="form-signin" role="form" action="{% url "account_logout" %}" method="post">
+							<div class="modal-body">
+									{% csrf_token %}
+										<h2 class="page-title">{% trans "Log out" %}</h2>
+										<p>{% trans "Deseja realmente sair?" %}</p>
+							</div>
+							<div class="modal-footer">
+								<div class="form-actions">
+									<button type="submit" class="btn btn-primary">{% trans "Log out" %}</button>
+								</div>
+							</div>
+				</form>
+    </div>
+</div>

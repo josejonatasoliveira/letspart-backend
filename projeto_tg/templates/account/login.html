@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n avatar_tags %}
+{% block middle %}
+
+<div class="container" style="margin-top:100px">
+  <center>
+    <form action="{% url 'account_login' %}?next=/" method="POST">
+        {% csrf_token %}
+        <div class="modal-body">
+            <center>
+                <div class="group">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" name="login" type="text" id="id_username">
+                        <label class="mdl-textfield__label" for="id_username">{% trans "Username" %}</label>
+                    </div>
+                </div>
+                <span class="errolist"></span>
+            </center>
+
+            <center>
+                <div class="group">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" name="password" type="password" id="id_password">
+                        <label class="mdl-textfield__label" for="id_password">{% trans "Password" %}</label>
+                    </div>
+                </div>
+            </center>
+
+        </div>
+
+        <center>
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">{% trans "Login" %}</button>
+        </center>
+
+    </form>
+  </center>
+</div>
+
+<script type="text/javascript">
+
+    $("#login-form").on('submit', (e) => {
+        $.ajax({
+            url: "{% url 'account_login' %}",
+            data: $("#login-form").serialize(),
+            method: 'POST',
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-CSRFTOKEN', "{{ csrf_token }}");
+            },
+            complete: (data) => {
+                console.log(data);
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        })
+    })
+</script>
+{% endblock middle %}
